@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load static %}
+    <br />
+  
+  {% block title %}
+  {% if contact.manager == request.user %}
+  {{contact.name}} 
+  {% else %}
+  You don't have access
+  {% endif %}
+  {% endblock title %}
+  {% block content %}
+  
+  
+    <!-- Main Section -->
+    {% if contact.manager == request.user %}
+    <div class="container main-part">
+
+    {% include 'partial/_card.html' %}
+    </div>
+    <div class="container mt-3">
+      <h5 class="text-center my-3 font-weight-light">Date Added: &nbsp; {{contact.date_added}} </h5>
+    <p class="text-center text-light">
+      <a href=" {% url 'update' contact.id %} " class="btn btn-info px-5">
+        <i class="far fa-edit"></i> &nbsp; Update
+      </a>
+      &nbsp;&nbsp;&nbsp;
+      <a href="{% url 'delete' contact.id %}" class="btn btn-danger px-5">
+          <i class="far fa-edit"></i> &nbsp; Trash
+        </a>
+    </p>
+    </div>
+    
+    {% else %}
+    <div class="container mt-3">
+      <h2 class="text-center my-3 font-weight-light">You don't have access to this page </h2>
+      <hr />
+      </div>
+    {% endif %}
+    
+    <!-- Main Section ends-->
+
+    
+  {% endblock content %}
